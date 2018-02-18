@@ -98,7 +98,7 @@ std::vector<SuggestionsWidget::Row> SuggestionsWidget::getRowsByQuery() const {
 	if (_query.isEmpty()) {
 		return result;
 	}
-	auto suggestions = GetSuggestions(QStringToUTF16(_query.toLower()));
+	auto suggestions = GetSuggestions(QStringToUTF16(_query));
 	if (suggestions.empty()) {
 		return result;
 	}
