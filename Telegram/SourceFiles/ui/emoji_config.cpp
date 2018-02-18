@@ -48,7 +48,7 @@ EmojiPtr FindReplacement(const QChar *start, const QChar *end, int *outLength) {
 		for (auto till = start + 1; till != end; ++till) {
 			if (*till == ':') {
 				auto text = QString::fromRawData(start, till + 1 - start);
-				auto emoji = GetSuggestionEmoji(QStringToUTF16(text.toLower()));
+				auto emoji = GetSuggestionEmoji(QStringToUTF16(text));
 				auto result = Find(QStringFromUTF16(emoji));
 				if (result) {
 					if (outLength) *outLength = (till + 1 - start);
