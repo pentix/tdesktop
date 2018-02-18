@@ -401,7 +401,7 @@ QString SuggestionsController::getEmojiQuery() {
 			}
 			position -= from;
 			_queryStartPosition = from;
-			return fragment.text().toLower();		// TODO toLower() here
+			return fragment.text().toLower();
 		}
 		return QString();
 	};
@@ -411,7 +411,7 @@ QString SuggestionsController::getEmojiQuery() {
 		return QString();
 	}
 
-	auto isSuggestionChar = [](QChar ch) {	// TODO recognize A-Z
+	auto isSuggestionChar = [](QChar ch) {
 		return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || (ch == '_') || (ch == '-') || (ch == '+');
 	};
 	auto isGoodCharBeforeSuggestion = [isSuggestionChar](QChar ch) {
