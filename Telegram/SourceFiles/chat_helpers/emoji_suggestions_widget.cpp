@@ -98,7 +98,10 @@ std::vector<SuggestionsWidget::Row> SuggestionsWidget::getRowsByQuery() const {
 	if (_query.isEmpty()) {
 		return result;
 	}
-	auto suggestions = GetSuggestions(QStringToUTF16(_query));
+	
+	DEBUG_LOG(("suggestions: " + _query));
+	
+	auto suggestions = GetSuggestions(QStringToUTF16(_query.toLower()));
 	if (suggestions.empty()) {
 		return result;
 	}
@@ -401,7 +404,7 @@ QString SuggestionsController::getEmojiQuery() {
 			}
 			position -= from;
 			_queryStartPosition = from;
-			return fragment.text();
+			return fragment.text().toLower();		// TODO toLower() here
 		}
 		return QString();
 	};
@@ -411,8 +414,8 @@ QString SuggestionsController::getEmojiQuery() {
 		return QString();
 	}
 
-	auto isSuggestionChar = [](QChar ch) {
-		return (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch == '_') || (ch == '-') || (ch == '+');
+	auto isSuggestionChar = [](QChar ch) {	// TODO recognize A-Z
+		return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || (ch == '_') || (ch == '-') || (ch == '+');
 	};
 	auto isGoodCharBeforeSuggestion = [isSuggestionChar](QChar ch) {
 		return !isSuggestionChar(ch) || (ch == 0);
