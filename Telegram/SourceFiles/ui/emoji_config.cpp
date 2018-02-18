@@ -13,8 +13,6 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "chat_helpers/emoji_suggestions_helper.h"
 #include "auth_session.h"
 
-#include <QDebug>
-
 namespace Ui {
 namespace Emoji {
 namespace {
@@ -45,17 +43,12 @@ bool IsReplacementPart(ushort ch) {
 }
 
 EmojiPtr FindReplacement(const QChar *start, const QChar *end, int *outLength) {
-	DEBUG_LOG(("findReplacement is called: " + QString(*start)));
-	
 	if (start != end && *start == ':') {
 		auto maxLength = GetSuggestionMaxLength();
 		for (auto till = start + 1; till != end; ++till) {
-			DEBUG_LOG(("till='" + QString(*till) + "'"));
 			if (*till == ':') {
 				auto text = QString::fromRawData(start, till + 1 - start);
 				auto emoji = GetSuggestionEmoji(QStringToUTF16(text.toLower()));
-				
-				DEBUG_LOG(("{*till == ':'}  text='" + text + "'"));
 				auto result = Find(QStringFromUTF16(emoji));
 				if (result) {
 					if (outLength) *outLength = (till + 1 - start);
@@ -277,8 +270,6 @@ RecentEmojiPack &GetRecent() {
 }
 
 void AddRecent(EmojiPtr emoji) {
-	DEBUG_LOG(("addRecent Test 12345"));
-		
 	auto &recent = GetRecent();
 	auto i = recent.begin(), e = recent.end();
 	for (; i != e; ++i) {
